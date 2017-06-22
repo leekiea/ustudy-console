@@ -1,0 +1,80 @@
+        <!-- 内容 start -->
+        <div class="container">
+            <!-- 添加学校信息 start -->
+            <div class="panel panel-default" id="addSchoolInfoModal">
+                <form id="addSchoolInfoForm" method="post" action="#" class="form-horizontal" [formGroup]="addForm" (ngSubmit)="add($event)"
+                 data-bv-message="输入错误"
+                 data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                 data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                 data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                    <div class="panel-heading">
+                        <h4>添加学校信息</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="schoolName" class="col-sm-3 control-label">学校名称：</label>
+                            <div class="col-sm-6">
+                                <input formControlName="schoolName" type="text" class="form-control" id="schoolName" name="schoolName" placeholder="请输入学校名称" required data-bv-notempty-message="学校名称不能为空">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="schoolId" class="col-sm-3 control-label">学校ID：</label>
+                            <div class="col-sm-6">
+                                <input formControlName="schoolId" type="text" class="form-control" id="schoolId" name="schoolId" placeholder="请输入学校ID" required data-bv-notempty-message="学校ID不能为空">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type" class="col-sm-3 control-label">学校类型：</label>
+                            <div class="col-sm-6">
+                                <select formControlName="type" class="form-control" id="type" name="type" ng-value="string" required data-bv-notempty-message="学校类型不能为空">
+                                    <option value="">请选择类型</option>
+                                    <option *ngFor="let type of types" [value]="type">{{type}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="province" class="col-sm-3 control-label">省：</label>
+                            <div class="col-sm-6">
+                                <select formControlName="province" class="form-control" id="province" name="province" required data-bv-notempty-message="省不能为空">
+                                    <option value="">请选择省</option>
+									<option *ngFor="let province of provinces" [value]="province">{{province}}</option>	
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="col-sm-3 control-label">市：</label>
+                            <div class="col-sm-6">
+                                <select formControlName="city" class="form-control" id="city" name="city" ng-value="string" required data-bv-notempty-message="市不能为空">
+                                    <option value="">请选择市</option>
+                                    <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="district" class="col-sm-3 control-label">区县：</label>
+                            <div class="col-sm-6">
+                                <select formControlName="district" class="form-control" id="district" name="district" ng-value="string" required data-bv-notempty-message="区县不能为空">
+                                    <option value="">请选择区县</option>
+                                    <option *ngFor="let district of districts" [value]="district">{{district}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-offset-2 col-sm-6">配置年级：</label>
+                            <div class="col-sm-offset-3 col-sm-6" *ngFor="let g of grades">
+                                <label>
+                                    <input formControlName="grade" type="checkbox" value="{{g.grade}}" [checked]="g.checked" (change)="g.checked = !g.checked"/> {{g.grade}}
+                                </label>
+                            </div>
+                        </div>
+                        <a class="col-sm-offset-2 col-sm-1 btn btn-default" (click)='configSubjects($event)' >配置科目</a>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- 添加学校信息 end -->
+        </div>
+        <!-- 内容 end -->

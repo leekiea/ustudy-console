@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+.ngx-datatable.material .datatable-body-cell {
+	border: 1px solid #ddd;
+}
+.ngx-datatable .datatable-header .datatable-header-cell .datatable-checkbox {
+	display: none;
+}
+
+a:link{ color:#2c850d; text-decoration:none;}
+a:visited{ color:#2c850d; text-decoration:none;}
+a:hover{ color:#ff2020; text-decoration:underline;}
+a:actived{ color:#2c850d; text-decoration:none;}
