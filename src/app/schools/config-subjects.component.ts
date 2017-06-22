@@ -15,7 +15,7 @@ export class ConfigSubjectsComponent implements OnInit {
 	
 	grades: IGrade[];
 	
-	isAdd: boolean;
+	origin: string;
 	
     errorMessage: string;
 
@@ -32,25 +32,19 @@ export class ConfigSubjectsComponent implements OnInit {
 		}
 		alert("修改成功");
 		//go back to the add/update school page
-		if (this.isAdd === true) {
-			this.router.navigate(['addSchool', {grades : JSON.stringify(this.grades)}]);
-		} else {
-			this.router.navigate(['updateSchool', {grades : JSON.stringify(this.grades)}]);
-		}
+		this.router.navigate([this.origin, {grades : JSON.stringify(this.grades)}]);
 	}
 		
     ngOnInit(): void {
     	if (!this.route.snapshot.params.hasOwnProperty("grades") || this.route.snapshot.params.grades.length <=0 ) {
     		alert("请先选择年级！");
-			if (this.route.snapshot.params.isAdd) {
-    			this.router.navigate(['addSchool']);
-			} else {
-				this.router.navigate(['updateSchool']);
+			if (this.route.snapshot.params.origin !== undefined) {
+    			this.router.navigate([this.route.snapshot.params.origin]);
 			}
     	}
     	this.grades = JSON.parse(this.route.snapshot.params.grades);
     	
-    	this.isAdd = this.route.snapshot.params.isAdd;
+    	this.origin = this.route.snapshot.params.origin;
     	
 		this.configSubjectsForm = this.fb.group({
 			subject: [""],

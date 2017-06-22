@@ -53,7 +53,7 @@ export class UpdateSchoolComponent implements OnInit {
 		school.schoolType = this.updateForm.controls.type.value;
 
     	this._schoolService.setPersistData(school);
-		this.router.navigate(['subject', {grades : JSON.stringify(this.grades), isAdd : false}]);
+		this.router.navigate(['subject', {grades : JSON.stringify(this.grades), origin : 'updateSchool'}]);
     }
     
 	update(event) {
@@ -170,139 +170,7 @@ export class UpdateSchoolComponent implements OnInit {
 
 	// add unselected items into the grades and associate checked flag with all the items.
     constructGrades(oldGrades:IGrade[]): IGrade[] {
-		var newGrades: IGrade[] = //this._schoolService.getDefaultGrades();
-		[
-       	  {	"grade": '高一', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		   "numOfClasses": 0,
-       		   "checked": false
-       	  },
-       	  {	"grade": '高二', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}],
-       		   "numOfClasses": 0,
-       		   "checked": false
-       	  },
-       	  {	"grade": '高三', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "理综" ,"checked": false},
-       		               {"subject": "文综" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '七年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '八年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '九年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-						   {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '一年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '二年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '三年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '四年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '五年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '六年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }
-      	];       	  
+		var newGrades: IGrade[] = this._schoolService.getDefaultGrades();
 		if (oldGrades.length <= 0) {
 			return newGrades;
 		} else if (oldGrades[0].checked !== undefined){

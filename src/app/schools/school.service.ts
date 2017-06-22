@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
-import { ISchool, IGrade } from './school';
+import { ISchool, IGrade, ISubject } from './school';
 
 @Injectable()
 export class SchoolService {
@@ -26,7 +26,38 @@ export class SchoolService {
 	//完中：初中+高中， 补习：初三+高三
 	private types = ["高中", "初中", "完中", "九年制", "小学", "十二年制", "补习", "其他"];
 
-	private defaultGrades: IGrade[] = [
+    constructor(private _http: Http) { }
+
+//    getSchools(): Observable<ISchool[]> {
+//        return this._http.get(this._schoolUrl)
+//            .map((response: Response) => <ISchool[]>response.json())
+//            .do(data => console.log('All: ' +  JSON.stringify(data)))
+//            .catch(this.handleError);
+//    }
+//
+//    getSchool(id: string): Observable<ISchool> {
+//        return this.getSchools()
+//            .map((schools: ISchool[]) => schools.find(p => p.schoolId === id));
+//    }
+	
+	getProvinces(): string[] {
+		return this.provinces;
+	}
+
+	getCities(): string[] {
+		return this.cities;
+	}
+
+	getDistricts(): string[] {
+			return this.districts;
+	}
+	
+	getTypes(): string[] {
+		return this.types;
+	}
+	
+	getDefaultGrades(): IGrade[] {
+		return 	[
        	  {	"grade": '高一', 
        		  "subjects": [{"subject": "语文", "checked": false},
        		               {"subject": "数学", "checked": false},
@@ -157,40 +188,7 @@ export class SchoolService {
        		  "numOfClasses": 0,
        		  "checked": false
        	  }
-      	];       	  
-
-    constructor(private _http: Http) { }
-
-//    getSchools(): Observable<ISchool[]> {
-//        return this._http.get(this._schoolUrl)
-//            .map((response: Response) => <ISchool[]>response.json())
-//            .do(data => console.log('All: ' +  JSON.stringify(data)))
-//            .catch(this.handleError);
-//    }
-//
-//    getSchool(id: string): Observable<ISchool> {
-//        return this.getSchools()
-//            .map((schools: ISchool[]) => schools.find(p => p.schoolId === id));
-//    }
-	
-	getProvinces(): string[] {
-		return this.provinces;
-	}
-
-	getCities(): string[] {
-		return this.cities;
-	}
-
-	getDistricts(): string[] {
-			return this.districts;
-	}
-	
-	getTypes(): string[] {
-		return this.types;
-	}
-	
-	getDefaultGrades(): IGrade[] {
-		return this.defaultGrades;
+      	]; 
 	}
 	
 	getPersistData(): ISchool {

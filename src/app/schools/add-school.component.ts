@@ -49,7 +49,7 @@ export class AddSchoolComponent implements OnInit {
 		school.schoolType = this.addForm.controls.type.value;
 
     	this._schoolService.setPersistData(school);
-		this.router.navigate(['subject', {"grades" : JSON.stringify(this.grades), "isAdd" : true}]);
+		this.router.navigate(['subject', {grades : JSON.stringify(this.grades), origin : 'addSchool'}]);
     }
     
 	add(event) {
@@ -81,11 +81,11 @@ export class AddSchoolComponent implements OnInit {
 		var that = this;
 		req.onreadystatechange = function() {
 			that._schoolService.resetPersistData();
-			if (req.readyState == 4 && req.status == 201) {
+			if (req.readyState == 4 && req.status == 200) {
 				alert("添加成功");
 				//go back to the school list page
 				that.router.navigate(['school']);
-			} else if (req.readyState == 4 && req.status != 201) {
+			} else if (req.readyState == 4 && req.status != 200) {
 				alert("添加失败！");
 				//go back to the school list page
 				that.router.navigate(['school']);
