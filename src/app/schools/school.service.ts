@@ -202,7 +202,68 @@ export class SchoolService {
 	resetPersistData() {
 		this.persistData['_schoolInfo'] = undefined;
 	}
-		
+
+		// remove unselected items from the grades
+    washGrades(oldGrades:IGrade[]): IGrade[] {
+    	let newGrades: IGrade[] = [];
+    	for (let i=0; i< oldGrades.length; i++) {
+    		let curGrade = oldGrades[i];
+    		if (curGrade.checked === false) {
+    			continue;
+    		} else {
+    			let tmpGrade: IGrade = {
+					"grade": "",
+					"numOfClasses": 0,
+					"subjects": []
+				};
+    			tmpGrade.grade = curGrade.grade;
+    			tmpGrade.numOfClasses = curGrade.numOfClasses;
+    			let tmpSubjects: ISubject[] = [];
+    			for (let j=0; j < curGrade.subjects.length; j++) {
+    				let curSubject = curGrade.subjects[j];
+    				if (curSubject.checked === false) {
+    					continue;
+    				} else {
+    					let tmpSubject: ISubject = {
+							"subject": ""
+						};
+    					tmpSubject.subject = curSubject.subject;
+    					tmpSubjects.push(tmpSubject);
+    				}
+    			}
+    			tmpGrade.subjects = tmpSubjects;
+    			newGrades.push(tmpGrade);
+    		}
+    	}
+    	return newGrades;
+    }
+
+	// add unselected items into the grades and associate checked flag with all the items.
+    constructGrades(oldGrades:IGrade[]): IGrade[] {
+		var newGrades: IGrade[] = this.getDefaultGrades();
+		if (oldGrades.length <= 0) {
+			return newGrades;
+		} else if (oldGrades[0].checked !== undefined){
+			return oldGrades;
+		}
+		for (var oldGrade of oldGrades) {
+			for (var newGrade of newGrades) {
+				if (newGrade.grade == oldGrade.grade) {
+					newGrade.checked = true;
+					newGrade.numOfClasses = oldGrade.numOfClasses;
+					for (var oldSubject of oldGrade.subjects) {
+						for (var newSubject of newGrade.subjects) {
+							if (newSubject.subject == oldSubject.subject) {
+								newSubject.checked = true;
+							}
+						}
+					}
+				}
+			}
+		}
+    	return newGrades;
+    }	
+	
 //    private handleError(error: Response) {
 //        // in a real world app, we may send the server to some remote logging infrastructure
 //        // instead of just logging it to the console

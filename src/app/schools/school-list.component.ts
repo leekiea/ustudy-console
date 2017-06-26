@@ -72,9 +72,8 @@ export class SchoolListComponent implements OnInit {
 	fetch(cb) {
 		const req = new XMLHttpRequest();
 		req.open('GET', 'http://47.92.53.57:8080/dashboard/school/list/0');
-		//req.open('GET', 'assets/api/schools/schools.json');
+		//req.open('GET', 'assets/api/schools/simpleSchools.json');
 		req.onload = () => {
-			console.log("response: " + req.response.toString());
 			cb(JSON.parse(req.response));
 		};
 		
@@ -134,31 +133,6 @@ export class SchoolListComponent implements OnInit {
 	}
 
 	updateSchool(row) {
-    	var school = {
-			"id": "",
-			"schoolId": "",
-			"schoolName": "",
-			"province": "",
-			"city": "",
-			"district": "",
-			"schoolType": "",
-			"grades": ""
-		};
-
-		school.id = row.id;
-		school.schoolId = row.schoolId;
-		school.schoolName = row.schoolName;
-		school.province = row.province;
-		school.city = row.city;
-		school.district = row.district;
-		school.schoolType = row.schoolType;
-		for(let i=0; i< this.rows.length; i++) {
-			if (this.rows[i].schoolId == row.schoolId) {
-				school.grades = JSON.stringify(this.rows[i].grades);
-				break;
-			}
-		}
-
-		this.router.navigate(['updateSchool', school]);
+		this.router.navigate(['updateSchool', {id: row.id}]);
 	}	
 }

@@ -11,44 +11,36 @@ import { SchoolService } from './school.service';
 
 export class ConfigSubjectsComponent implements OnInit {
 
-	public configSubjectsForm : FormGroup;
-	
-	grades: IGrade[];
-	
 	origin: string;
 	
     errorMessage: string;
 
-    schools: ISchool[];
+    public school: ISchool;
 		
     constructor(private _schoolService: SchoolService, public fb: FormBuilder, public route: ActivatedRoute, private router: Router) {
 		
     }
 	
 	config(event) {
-		if (this.configSubjectsForm.status == "INVALID") {
-			alert("信息不完整");
-			return;
-		}
+		this._schoolService.setPersistData(this.school);
+		console.log("******persist config data: " + JSON.stringify(this.school));
 		alert("修改成功");
 		//go back to the add/update school page
-		this.router.navigate([this.origin, {grades : JSON.stringify(this.grades)}]);
+		this.router.navigate([this.origin]);
 	}
-		
+	
     ngOnInit(): void {
-    	if (!this.route.snapshot.params.hasOwnProperty("grades") || this.route.snapshot.params.grades.length <=0 ) {
+
+		this.school = this._schoolService.getPersistData();
+
+		console.log("get persist data: " + JSON.stringify(this.school));
+    	if (!this.school || !this.school.grades || this.school.grades.length <= 0 ) {
     		alert("请先选择年级！");
 			if (this.route.snapshot.params.origin !== undefined) {
     			this.router.navigate([this.route.snapshot.params.origin]);
 			}
     	}
-    	this.grades = JSON.parse(this.route.snapshot.params.grades);
-    	
+
     	this.origin = this.route.snapshot.params.origin;
-    	
-		this.configSubjectsForm = this.fb.group({
-			subject: [""],
-			numOfClasses: ["", Validators.required]
-		});
     }
 }

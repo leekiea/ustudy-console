@@ -14,19 +14,19 @@
                         <div class="form-group">
                             <label for="schoolName" class="col-sm-3 control-label">学校名称：</label>
                             <div class="col-sm-6">
-                                <input formControlName="schoolName" type="text" class="form-control" id="schoolName" name="schoolName" placeholder="请输入学校名称" required data-bv-notempty-message="学校名称不能为空">
+                                <input formControlName="schoolName" type="text" class="form-control" name="schoolName" [(ngModel)]="school.schoolName" placeholder="请输入学校名称" required data-bv-notempty-message="学校名称不能为空">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="schoolId" class="col-sm-3 control-label">学校ID：</label>
                             <div class="col-sm-6">
-                                <input formControlName="schoolId" type="text" class="form-control" id="schoolId" name="schoolId" placeholder="请输入学校ID" required data-bv-notempty-message="学校ID不能为空">
+                                <input formControlName="schoolId" type="text" class="form-control" name="schoolId" [(ngModel)]="school.schoolId" placeholder="请输入学校ID" required data-bv-notempty-message="学校ID不能为空">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="type" class="col-sm-3 control-label">学校类型：</label>
                             <div class="col-sm-6">
-                                <select formControlName="type" class="form-control" id="type" name="type" ng-value="string" required data-bv-notempty-message="学校类型不能为空">
+                                <select formControlName="type" class="form-control" name="type" [(ngModel)]="school.schoolType" ng-value="string" required data-bv-notempty-message="学校类型不能为空">
                                     <option value="">请选择类型</option>
                                     <option *ngFor="let type of types" [value]="type">{{type}}</option>
                                 </select>
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="province" class="col-sm-3 control-label">省：</label>
                             <div class="col-sm-6">
-                                <select formControlName="province" class="form-control" id="province" name="province" required data-bv-notempty-message="省不能为空">
+                                <select formControlName="province" class="form-control" name="province" [(ngModel)]="school.province" required data-bv-notempty-message="省不能为空">
                                     <option value="">请选择省</option>
 									<option *ngFor="let province of provinces" [value]="province">{{province}}</option>	
                                 </select>
@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label for="city" class="col-sm-3 control-label">市：</label>
                             <div class="col-sm-6">
-                                <select formControlName="city" class="form-control" id="city" name="city" ng-value="string" required data-bv-notempty-message="市不能为空">
+                                <select formControlName="city" class="form-control" name="city" [(ngModel)]="school.city" ng-value="string" required data-bv-notempty-message="市不能为空">
                                     <option value="">请选择市</option>
                                     <option *ngFor="let city of cities" [value]="city">{{city}}</option>
                                 </select>
@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <label for="district" class="col-sm-3 control-label">区县：</label>
                             <div class="col-sm-6">
-                                <select formControlName="district" class="form-control" id="district" name="district" ng-value="string" required data-bv-notempty-message="区县不能为空">
+                                <select formControlName="district" class="form-control" name="district" [(ngModel)]="school.district" ng-value="string" required data-bv-notempty-message="区县不能为空">
                                     <option value="">请选择区县</option>
                                     <option *ngFor="let district of districts" [value]="district">{{district}}</option>
                                 </select>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group">
                         	<label class="col-sm-offset-2 col-sm-6">配置年级：</label>
-                            <div class="col-sm-offset-3 col-sm-6" *ngFor="let g of grades">
+                            <div class="col-sm-offset-3 col-sm-6" *ngFor="let g of school.grades">
                                 <label>
                                     <input formControlName="grade" type="checkbox" value="{{g.grade}}" [checked]="g.checked" (change)="g.checked = !g.checked"/> {{g.grade}}
                                 </label>
