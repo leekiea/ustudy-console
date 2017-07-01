@@ -45,7 +45,7 @@ export class UpdateSchoolComponent implements OnInit {
 	cancel(event) {
 		this._schoolService.resetPersistData();
 		//go back to the school list page
-		this.router.navigate(['/school']);		
+		this.router.navigate(['/schoolList']);		
 	}
 
 	update(event) {
@@ -65,11 +65,11 @@ export class UpdateSchoolComponent implements OnInit {
 			if (req.readyState == 4 && req.status == 200) {
 				alert("修改成功");
 				//go back to the school list page
-				that.router.navigate(['school']);
+				that.router.navigate(['schoolList']);
 			} else if (req.readyState == 4 && req.status != 200) {
 				alert("修改失败！");
 				//go back to the school list page
-				that.router.navigate(['school']);
+				that.router.navigate(['schoolList']);
 			}
 		}
 		req.send(JSON.stringify(this.school));

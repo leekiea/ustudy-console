@@ -36,7 +36,7 @@
 		                    <li class="dropdown">
 		                    	<a href="#" data-toggle="dropdown" class="dropdown-toggle">客户管理 <span class="caret"></span></a>
 							    <ul class="dropdown-menu" aria-labelledby="dLabel">
-                                    <li><a href="#">学校信息</a></li>
+                                    <li><a href="schoolList">学校信息</a></li>
                                     <li><a href="#">教研室信息</a></li>
                                     <li><a href="#">统计分析</a></li>
 							    </ul>
@@ -73,16 +73,6 @@
         </div>
         <!-- 导航条 end -->
 
-        <!-- 路径导航 start -->
-        <div class="container">
-	        <ol class="breadcrumb clear-padding-vertical">
-	            <li><a href="#">首页</a></li>
-	            <li><a href="#">后台管理系统</a></li>
-				 <li><a [routerLink]="['/school']">学校信息</a></li>
-	        </ol>
-        </div>
-        <!-- 路径导航 end -->
-		
         <!-- 内容 start -->
         <div class="container">
              <router-outlet></router-outlet>

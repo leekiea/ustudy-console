@@ -41,7 +41,12 @@ export class AddSchoolComponent implements OnInit {
     	this._schoolService.setPersistData(this.school);
 		this.router.navigate(['/subject', {origin: 'addSchool'}]);
     }
-    
+
+	cancel(event) {
+		this._schoolService.resetPersistData();
+		this.router.navigate(['schoolList']);
+	}
+
 	add(event) {
 		if (this.addForm.status == "INVALID") {
 			alert("信息不完整");
@@ -59,11 +64,11 @@ export class AddSchoolComponent implements OnInit {
 			if (req.readyState == 4 && req.status == 200) {
 				alert("添加成功");
 				//go back to the school list page
-				that.router.navigate(['school']);
+				that.router.navigate(['schoolList']);
 			} else if (req.readyState == 4 && req.status != 200) {
 				alert("添加失败！");
 				//go back to the school list page
-				that.router.navigate(['school']);
+				that.router.navigate(['schoolList']);
 			}
 		}
 		req.send(JSON.stringify(this.school));

@@ -6,6 +6,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
+import { WelcomeComponent } from './welcome.component';
 import { SchoolListComponent } from './school-list.component';
 import { AddSchoolComponent } from './add-school.component';
 import { UpdateSchoolComponent } from './update-school.component';
@@ -18,7 +19,8 @@ import { SchoolService } from './school.service';
     CommonModule,
 	NgxDatatableModule,
     RouterModule.forChild([
-    { path: 'school', component: SchoolListComponent },
+    { path: 'welcome', component: WelcomeComponent },
+    { path: 'schoolList', component: SchoolListComponent },
 	  { path: 'addSchool', component: AddSchoolComponent },
 	  { path: 'updateSchool', component: UpdateSchoolComponent },
     { path: 'subject', component: ConfigSubjectsComponent }
@@ -28,6 +30,7 @@ import { SchoolService } from './school.service';
 	HttpModule
   ],
   declarations: [
+    WelcomeComponent,
     SchoolListComponent,
 	AddSchoolComponent,
 	UpdateSchoolComponent,
