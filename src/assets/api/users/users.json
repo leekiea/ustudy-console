@@ -1,0 +1,46 @@
+[
+    {
+        "id": "001",
+        "userId": "13455556666",
+        "userName": "张三",
+        "userType": "运维",
+        "userStatus": "在线",
+        "lastLoginTime": "2017/01/20 22:10",
+        "province": "陕西省",
+        "city": "西安市",
+        "district": "长安区"
+    },
+        {
+        "id": "002",
+        "userId": "13455557777",
+        "userName": "李四",
+        "userType": "市场",
+        "userStatus": "在线",
+        "lastLoginTime": "2017/03/01 15:13",
+        "province": "陕西省",
+        "city": "西安市",
+        "district": "碑林区"
+    },
+        {
+        "id": "003",
+        "userId": "13455558888",
+        "userName": "王五",
+        "userType": "代理",
+        "userStatus": "离线",
+        "lastLoginTime": "2017/02/14 07:00",
+        "province": "陕西省",
+        "city": "西安市",
+        "district": "长安区"
+    },
+        {
+        "id": "004",
+        "userId": "13455559999",
+        "userName": "赵六",
+        "userType": "临时",
+        "userStatus": "离线",
+        "lastLoginTime": "2017/02/05 12:36",
+        "province": "陕西省",
+        "city": "西安市",
+        "district": "未央区"
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "id": "001",
+    "userId": "13455556666",
+    "userName": "张三",
+    "password": "123456",
+    "userType": "运维",
+    "province": "陕西省",
+    "city": "西安市",
+    "district": "长安区"
+}

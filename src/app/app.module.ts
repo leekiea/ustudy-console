@@ -8,6 +8,7 @@ import { WelcomeComponent }  from './schools/welcome.component';
 
 /* Feature Modules */
 import { SchoolModule } from './schools/school.module';
+import { UserModule } from './users/user.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { SchoolModule } from './schools/school.module';
       { path: '', redirectTo: 'welcome', pathMatch: 'full' }/*,
       { path: '**', redirectTo: 'school', pathMatch: 'full' }*/
     ]),
-	SchoolModule
+	SchoolModule,
+  UserModule
   ],
   declarations: [
     AppComponent
