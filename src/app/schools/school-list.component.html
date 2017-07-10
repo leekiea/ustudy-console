@@ -10,7 +10,7 @@
         <div class="container">
 	        <!-- 检索 start -->
 	        <div class="row search-wrap">
-	            <div class="col-sm-12 col-lg-9">
+	            <div class="col-lg-10">
 	                <form [formGroup]="searchForm" (ngSubmit)="search($event)" id="searchForm" method="post" class="form-inline" action="#">
 						<div class="input-group" >
 						    <span class="input-group-addon">省</span>
@@ -48,7 +48,7 @@
 				        </div>
 	                </form>
 	            </div>
-	            <div class="col-sm-12 col-lg-3 text-right">
+	            <div class="col-lg-2 text-right">
 		            <div class="btn-group btn-group-justified" role="group" aria-label="button group">
 					    <a [routerLink]="['/addSchool']" id="addSchoolInfoBtn" href="#" class="btn btn-default" title="新建学校">新建学校</a>
 					    <a (click)='removeSchool($event)' class="btn btn-default" title="删除学校">删除学校</a>
