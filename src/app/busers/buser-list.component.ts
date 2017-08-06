@@ -2,23 +2,17 @@ import { Component, OnInit }  from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { IUser } from './user';
-import { UserService } from './user.service';
+import { BUserService } from './buser.service';
 
 @Component({
-    templateUrl: 'user-list.component.html'
+    templateUrl: 'buser-list.component.html'
 })
 
-export class UserListComponent implements OnInit {
+export class BUserListComponent implements OnInit {
 
     users: IUser[];
 
-	provinces = [];
-	
-	cities = [];
-	
-	districts = [];
-	
-	types = [];
+	types = ["学校", "教研室"];
 	
 	rows = [];
 	
@@ -27,22 +21,19 @@ export class UserListComponent implements OnInit {
 	columns = [
 		{ prop: 'userName', name: '姓名' },
 		{ prop: 'userId', name: '手机号（账号）' },
-		{ prop: 'userType', name: '类型' },
+		{ prop: 'orgType', name: '单位类型' },
+		{ prop: 'orgId', name: '单位ID' },
 		{ prop: 'userStatus', name: '状态' },
 		{ prop: 'lastLoginTime', name: '上次登录时间' }
 	];
 	
-    constructor(private _userService: UserService, private router: Router) {
+    constructor(private _userService: BUserService, private router: Router) {
 
     }
 		
     ngOnInit(): void {
-		this.reload();
-        this.provinces = this._userService.getProvinces();
-        this.cities = this._userService.getCities();
-        this.districts = this._userService.getDistricts();
-        this.types = this._userService.getTypes();
-	   }
+		this.reload();	   
+	}
 	
 	reload() {
 		this.fetch((data) => {
@@ -54,7 +45,7 @@ export class UserListComponent implements OnInit {
 	
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8080/dashboard/user/list/0');
+		req.open('GET', 'http://47.92.53.57:8080/dashboard/owner/list/0');
 		//req.open('GET', 'assets/api/users/users.json');
 		req.onload = () => {
 			cb(JSON.parse(req.response));
@@ -63,7 +54,7 @@ export class UserListComponent implements OnInit {
 		req.send();
 	}	
 
-	removeUser(event) {
+	removeBUser(event) {
 		var ids = [];
 		console.log("length:" + this.selected.length);
 		for(var i=0; i<this.selected.length; i++) {
@@ -93,7 +84,7 @@ export class UserListComponent implements OnInit {
 		req.send(ids);
 	}
 
-	updateUser(row) {
-		this.router.navigate(['updateUser', {id: row.id}]);
-	}	
+	updateBUser(row) {
+		this.router.navigate(['updateBUser', {id: row.id}]);
+	}
 }

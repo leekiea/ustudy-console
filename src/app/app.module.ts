@@ -9,6 +9,7 @@ import { WelcomeComponent }  from './schools/welcome.component';
 /* Feature Modules */
 import { SchoolModule } from './schools/school.module';
 import { UserModule } from './users/user.module';
+import { BUserModule } from './busers/buser.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { UserModule } from './users/user.module';
       { path: '**', redirectTo: 'school', pathMatch: 'full' }*/
     ]),
 	SchoolModule,
-  UserModule
+  UserModule,
+  BUserModule
   ],
   declarations: [
     AppComponent

@@ -1,0 +1,55 @@
+        <!-- 路径导航 start -->
+        <div class="container">
+	        <ol class="breadcrumb clear-padding-vertical">
+	            <li><a href="#">首页</a></li>
+				<li><a href="bUserList">B端管理员账号</a></li>
+	        </ol>
+        </div>
+        <!-- 路径导航 end -->
+        <!-- 内容 start -->
+        <div class="container">
+	        <div class="row search-wrap">
+				<div class="col-sm-12 col-lg-9 text-right">
+				</div>
+	            <div class="col-sm-12 col-lg-3 text-right">
+		            <div class="btn-group btn-group-justified" role="group" aria-label="button group">
+					    <a [routerLink]="['/addBUser']" id="addUserBtn" href="#" class="btn btn-default" title="新建账号">新建账号</a>
+					    <a (click)='removeBUser($event)' class="btn btn-default" title="删除账号">删除账号</a>
+					</div>
+				</div>
+	        </div>
+			<br/>
+			<!-- 表格 start -->
+			<div>
+				  <ngx-datatable
+				    style="width: 100%"
+					class="material striped"
+					[rows]="rows"
+					[columns]="columns"
+					[columnMode]="'force'"
+					[headerHeight]="50"
+					[footerHeight]="50"
+					[rowHeight]="50"
+					[selected]="selected"
+					[selectionType]="'checkbox'"
+					[limit]="10">
+					<ngx-datatable-column
+					[headerCheckboxable]="true"
+					[checkboxable]="true">					
+					</ngx-datatable-column>
+					<ngx-datatable-column prop="userName" name="姓名"></ngx-datatable-column>
+					<ngx-datatable-column prop="userId" name="手机号（账号）"></ngx-datatable-column>
+					<ngx-datatable-column prop="orgType" name="单位类型"></ngx-datatable-column>
+					<ngx-datatable-column prop="orgType" name="单位ID"></ngx-datatable-column>
+					<ngx-datatable-column prop="userStatus" name="状态"></ngx-datatable-column>
+					<ngx-datatable-column prop="lastLoginTime" name="上次登录时间"></ngx-datatable-column>
+					<ngx-datatable-column name="操作">
+						<ng-template let-row="row" ngx-datatable-cell-template>
+							<a (click)='updateBUser(row)' class="btn btn-default" title="修改">修改</a>
+						</ng-template>
+					</ngx-datatable-column>
+				  </ngx-datatable>
+			</div>
+			<!-- 表格 end -->
+        </div>
+        <!-- 内容 end -->			
