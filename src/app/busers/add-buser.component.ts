@@ -23,7 +23,7 @@ export class AddBUserComponent implements OnInit {
 		'orgId' : ''
 	};
 
-	types = ["学校", "教研室"];
+	types = ["school", "office"];
 	
 	constructor(private _userService: BUserService, public fb: FormBuilder, public route: ActivatedRoute, private router: Router) {
 

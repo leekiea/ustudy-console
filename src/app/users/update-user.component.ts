@@ -82,8 +82,8 @@ export class UpdateUserComponent implements OnInit {
 
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		//req.open('GET', 'http://47.92.53.57:8080/dashboard/user/view/' + this.route.snapshot.params.id);
-		req.open('GET', 'assets/api/users/user.json');
+		req.open('GET', 'http://47.92.53.57:8080/dashboard/user/view/' + this.route.snapshot.params.id);
+		//req.open('GET', 'assets/api/users/user.json');
 		req.onload = () => {
 			cb(JSON.parse(req.response));
 		};

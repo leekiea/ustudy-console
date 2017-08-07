@@ -21,7 +21,7 @@ export class UserService {
 	private districts = ["未央区", "莲湖区", "新城区", "碑林区", "灞桥区", "雁塔区", "阎良区", "临潼区",
 	                     "长安区", "蓝田县", "周至县", "户县", "高陵县"]
 	
-	private types = ["运维", "市场", "代理", "临时"];
+	private types = ["运维", "市场", "代理商", "临时"];
 
   constructor(private _http: Http) { }
 
