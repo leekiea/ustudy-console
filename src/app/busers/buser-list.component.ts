@@ -1,7 +1,7 @@
 import { Component, OnInit }  from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { IUser } from './user';
+import { IBUser } from './buser';
 import { BUserService } from './buser.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { BUserService } from './buser.service';
 
 export class BUserListComponent implements OnInit {
 
-    users: IUser[];
+    users: IBUser[];
 
 	types = ["学校", "教研室"];
 	
@@ -70,7 +70,7 @@ export class BUserListComponent implements OnInit {
 	
 	remove(ids) {
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8080/dashboard/user/delete');
+		req.open('POST', 'http://47.92.53.57:8080/dashboard/owner/delete');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
@@ -85,6 +85,6 @@ export class BUserListComponent implements OnInit {
 	}
 
 	updateBUser(row) {
-		this.router.navigate(['updateBUser', {id: row.id}]);
+		this.router.navigate(['updateOwner', {id: row.id}]);
 	}
 }

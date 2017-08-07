@@ -30,7 +30,7 @@ export class AddBUserComponent implements OnInit {
     }
 
 	cancel(event) {
-		this.router.navigate(['bUserList']);
+		this.router.navigate(['ownerList']);
 	}
 
 	add(event) {
@@ -49,11 +49,11 @@ export class AddBUserComponent implements OnInit {
 			if (req.readyState == 4 && req.status == 200) {
 				alert("添加成功");
 				//go back to the school list page
-				that.router.navigate(['bUserList']);
+				that.router.navigate(['ownerList']);
 			} else if (req.readyState == 4 && req.status != 200) {
 				alert("添加失败！");
 				//go back to the school list page
-				that.router.navigate(['bUserList']);
+				that.router.navigate(['ownerList']);
 			}
 		}
 		console.log("add user: " + JSON.stringify(this.user));

@@ -33,7 +33,7 @@ export class UpdateBUserComponent implements OnInit {
     }
     
 	cancel(event) {
-		this.router.navigate(['/bUserList']);		
+		this.router.navigate(['/ownerList']);		
 	}
 
 	update(event) {
@@ -54,11 +54,11 @@ export class UpdateBUserComponent implements OnInit {
 			if (req.readyState == 4 && req.status == 200) {
 				alert("修改成功");
 				//go back to the school list page
-				that.router.navigate(['bUserList']);
+				that.router.navigate(['ownerList']);
 			} else if (req.readyState == 4 && req.status != 200) {
 				alert("修改失败！");
 				//go back to the school list page
-				that.router.navigate(['bUserList']);
+				that.router.navigate(['ownerList']);
 			}
 		}
 		console.log("update user: " + JSON.stringify(this.user));

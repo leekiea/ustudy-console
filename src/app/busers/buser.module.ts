@@ -17,9 +17,9 @@ import { BUserService } from './buser.service';
     CommonModule,
 	NgxDatatableModule,
     RouterModule.forChild([
-    { path: 'bUserList', component: BUserListComponent },
-	  { path: 'addBUser', component: AddBUserComponent },
-	  { path: 'updateBUser', component: UpdateBUserComponent }
+    { path: 'ownerList', component: BUserListComponent },
+	  { path: 'addOwner', component: AddBUserComponent },
+	  { path: 'updateOwner', component: UpdateBUserComponent }
     ]),
 	ReactiveFormsModule,
 	FormsModule,
