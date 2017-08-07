@@ -12,7 +12,7 @@ export class BUserListComponent implements OnInit {
 
     users: IBUser[];
 
-	types = ["school", "office"];
+	types = ["学校", "教研室"];
 	
 	rows = [];
 	

@@ -24,7 +24,7 @@ export class UpdateBUserComponent implements OnInit {
 		'orgId' : ''
 	};
 
-	types = ["school", "office"];
+	types = ["学校", "教研室"];
 
 	oldPassword: string = "";
 
