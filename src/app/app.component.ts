@@ -16,8 +16,8 @@ export class AppComponent {
     getUserName() {
 		this.fetch((data) => {
 			//cache the list
-			console.log("data: " + JSON.stringify(data));
-			this.userName = data.userName===undefined ? '' : data.userName;
+			console.log("data: " + data);
+			this.userName = data===undefined ? '' : data;
 		});		
 	}
 	
@@ -25,7 +25,7 @@ export class AppComponent {
 		const req = new XMLHttpRequest();
 		req.open('GET', 'http://47.92.53.57:8080/dashboard/loginId');
 		req.onload = () => {
-			cb(JSON.parse(req.response));
+			cb(req.response);
 		};
 		
 		req.send();
