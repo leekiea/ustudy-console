@@ -59,11 +59,11 @@ export class UpdateUserComponent implements OnInit {
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status == 200) {
+			if (req.readyState == 4 && req.status/100 == 2) {
 				alert("修改成功");
 				//go back to the school list page
 				that.router.navigate(['userList']);
-			} else if (req.readyState == 4 && req.status != 200) {
+			} else if (req.readyState == 4 && req.status/100 != 2) {
 				alert("修改失败！");
 				//go back to the school list page
 				that.router.navigate(['userList']);
