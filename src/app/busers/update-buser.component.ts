@@ -47,7 +47,7 @@ export class UpdateBUserComponent implements OnInit {
 		}
 
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8080/dashboard/owner/update);
+		req.open('POST', 'http://47.92.53.57:8080/dashboard/owner/update');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
