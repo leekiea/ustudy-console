@@ -1,0 +1,42 @@
+[
+    {
+        "id": "001",
+        "userId": "13455556666",
+        "userName": "张主任",
+        "password": "123456",
+        "userType": "教研主任",
+        "orgType": "教研室",
+        "orgName": "西安市教研室",
+        "orgId": "0909"
+    }  
+    {
+        "id": "002",
+        "userId": "13455556667",
+        "userName": "李考务",
+        "password": "123456",
+        "userType": "考务老师",
+        "orgType": "教研室",
+        "orgName": "西安市教研室",
+        "orgId": "0909"
+    }  
+    {
+        "id": "003",
+        "userId": "13455556668",
+        "userName": "王考务",
+        "password": "123456",
+        "userType": "考务老师",
+        "orgType": "学校",
+        "orgName": "西安一中",
+        "orgId": "1010"
+    }  
+    {
+        "id": "004",
+        "userId": "13455556669",
+        "userName": "赵校长",
+        "password": "123456",
+        "userType": "校长",
+        "orgType": "学校",
+        "orgName": "西安一中",
+        "orgId": "1010"
+    }  
+]
