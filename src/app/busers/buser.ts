@@ -6,6 +6,7 @@ export interface IBUser {
     password?: string;
     orgType: string;
     orgId: string;
+    role: string;
     userStatus?: string;
     lastLoginTime?: string;
 }

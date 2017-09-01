@@ -12,10 +12,6 @@ export class BUserListComponent implements OnInit {
 
     users: IBUser[];
 
-	types = [{"orgType": "学校", "userTypes":[{"n": "考务老师"}, {"n": "校长"}]}, 
-			{"orgType": "教研室", "userTypes":[{"n": "考务老师"}, {"n": "教研主任"}]}
-	];
-	
 	rows = [];
 	
 	selected = [];
@@ -23,9 +19,9 @@ export class BUserListComponent implements OnInit {
 	columns = [
 		{ prop: 'userName', name: '姓名' },
 		{ prop: 'userId', name: '手机号（账号）' },
-		{ prop: 'userType', name: '账号类型' },
+		{ prop: 'role', name: '账号类型' },
 		{ prop: 'orgType', name: '单位类型' },
-		{ prop: 'orgName', name: '单位名称' },
+		{ prop: 'orgId', name: '单位ID' },
 		{ prop: 'userStatus', name: '状态' },
 		{ prop: 'lastLoginTime', name: '上次登录时间' }
 	];
@@ -48,8 +44,8 @@ export class BUserListComponent implements OnInit {
 	
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		//req.open('GET', 'http://47.92.53.57:8080/dashboard/owner/list/0');
-		req.open('GET', 'assets/api/users/busers.json');
+		req.open('GET', 'http://47.92.53.57:8080/dashboard/owner/list/0');
+		//req.open('GET', 'assets/api/users/busers.json');
 		req.onload = () => {
 			cb(JSON.parse(req.response));
 		};

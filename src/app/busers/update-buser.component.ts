@@ -21,7 +21,8 @@ export class UpdateBUserComponent implements OnInit {
 		'userId' : '',
 		'password' : '',
 		'orgType' : '',
-		'orgId' : ''
+		'orgId' : '',
+		'role' : ''
 	};
 
 	types = ["学校", "教研室"];
@@ -89,7 +90,8 @@ export class UpdateBUserComponent implements OnInit {
 			userName: ["", Validators.required],
 			password: ["", Validators.required],
 			orgType: ["", Validators.required],
-			orgId: ["", Validators.required]
+			orgId: ["", Validators.required],
+			role: ["", Validators.required]
 		});
 
 		this.reload();

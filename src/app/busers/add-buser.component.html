@@ -34,7 +34,7 @@
                             <div class="col-sm-6">
                                 <select formControlName="orgType" class="form-control" name="orgType" [(ngModel)]="user.orgType" ng-value="string" required data-bv-notempty-message="单位类型不能为空">
                                     <option value="">请选择类型</option>
-                                    <option *ngFor="let type of types" [value]="type">{{type}}</option>
+                                    <option *ngFor="let type of types" [value]="type.orgType">{{type.orgType}}</option>
                                 </select>
                             </div>
                         </div>
@@ -44,6 +44,17 @@
                                 <input formControlName="orgId" type="text" class="form-control" name="orgId" [(ngModel)]="user.orgId" placeholder="请输入单位ID" required data-bv-notempty-message="单位ID不能为空">
                             </div>
                         </div>
+                        <ng-container *ngFor="let type of types">                        
+                            <div class="form-group" *ngIf="type.orgType === user.orgType">
+                                <label for="role" class="col-sm-3 control-label">账号类型：</label>
+                                <div class="col-sm-6">
+                                    <select formControlName="role" class="form-control" name="role" [(ngModel)]="user.role" ng-value="string" required data-bv-notempty-message="账号类型不能为空">
+                                        <option value="">请选择类型</option>
+                                        <option *ngFor="let role of type.roles" [value]="role.n">{{role.n}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </ng-container>
                     </div>
                     <div class="panel-footer text-center">
                         <button type="reset" class="btn btn-default" (click)="cancel($event)">取消</button>

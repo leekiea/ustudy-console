@@ -15,16 +15,21 @@ export class AddBUserComponent implements OnInit {
     
 	errorMessage: string;
 
+	selectedOrgType: string;
+
+	types = [{"orgType": "学校", "roles":[{"n": "考务老师"}, {"n": "校长"}]}, 
+			{"orgType": "教研室", "roles":[{"n": "考务老师"}, {"n": "教研主任"}]}
+	];
+	
     user: IBUser = {
 		'userName' : '',
 		'userId' : '',
+		'role': '',
 		'password' : '',
 		'orgType' : '',
 		'orgId' : ''
 	};
 
-	types = ["学校", "教研室"];
-	
 	constructor(private _userService: BUserService, public fb: FormBuilder, public route: ActivatedRoute, private router: Router) {
 
     }
@@ -66,7 +71,8 @@ export class AddBUserComponent implements OnInit {
 			userName: ["", Validators.required],
 			password: ["", Validators.required],
 			orgType: ["", Validators.required],
-			orgId: ["", Validators.required]
+			orgId: ["", Validators.required],
+			role: ["", Validators.required]
 		});
     }
 }
