@@ -25,7 +25,9 @@ export class UpdateBUserComponent implements OnInit {
 		'role' : ''
 	};
 
-	types = ["学校", "教研室"];
+	types = [{"orgType": "学校", "roles":[{"n": "考务老师"}, {"n": "校长"}]}, 
+			{"orgType": "教研室", "roles":[{"n": "考务老师"}, {"n": "教研主任"}]}
+	];
 
 	oldPassword: string = "";
 
