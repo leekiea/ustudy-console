@@ -47,7 +47,7 @@ export class AddBUserComponent implements OnInit {
 		this.user.password = this._userService.MD5(this.user.password);
 
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8080/dashboard/owner/add');
+		req.open('POST', 'http://47.92.53.57:8081/dashboard/owner/add');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
