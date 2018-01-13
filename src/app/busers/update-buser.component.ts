@@ -50,7 +50,7 @@ export class UpdateBUserComponent implements OnInit {
 		}
 
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/owner/update');
+		req.open('POST', 'http://59.110.51.177:8081/dashboard/owner/update');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
@@ -77,7 +77,7 @@ export class UpdateBUserComponent implements OnInit {
 
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/owner/view/' + this.route.snapshot.params.id);
+		req.open('GET', 'http://59.110.51.177:8081/dashboard/owner/view/' + this.route.snapshot.params.id);
 		//req.open('GET', 'assets/api/users/user.json');
 		req.onload = () => {
 			cb(JSON.parse(req.response));

@@ -56,7 +56,7 @@ export class AddSchoolComponent implements OnInit {
 		this.school.grades = this._schoolService.washGrades(this.school.grades);
 
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/school/add');
+		req.open('POST', 'http://59.110.51.177:8081/dashboard/school/add');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
