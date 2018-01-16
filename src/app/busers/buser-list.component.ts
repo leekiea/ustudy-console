@@ -57,8 +57,8 @@ export class BUserListComponent implements OnInit {
 		var ids = [];
 		console.log("length:" + this.selected.length);
 		for(var i=0; i<this.selected.length; i++) {
-			var j = {"id" : ""};
-			j.id = this.selected[i].id;
+			var j = {"id" : 0};
+			j.id = Number(this.selected[i].id);
 			console.log("remove users:" + j.id);
 			ids.push(j);
 		}
