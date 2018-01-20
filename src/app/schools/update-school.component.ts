@@ -57,7 +57,7 @@ export class UpdateSchoolComponent implements OnInit {
 		this.school.grades = this._schoolService.washGrades(this.school.grades);
 
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/school/update/' + this.school.id);
+		req.open('POST', 'http://39.107.93.245:8081/dashboard/school/update/' + this.school.id);
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
@@ -84,7 +84,7 @@ export class UpdateSchoolComponent implements OnInit {
 
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/school/view/' + this.route.snapshot.params.id);
+		req.open('GET', 'http://39.107.93.245:8081/dashboard/school/view/' + this.route.snapshot.params.id);
 		//req.open('GET', 'assets/api/schools/school.json');
 		req.onload = () => {
 			cb(JSON.parse(req.response));

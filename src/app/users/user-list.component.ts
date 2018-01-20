@@ -54,7 +54,7 @@ export class UserListComponent implements OnInit {
 	
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/user/list/0');
+		req.open('GET', 'http://39.107.93.245:8081/dashboard/user/list/0');
 		//req.open('GET', 'assets/api/users/users.json');
 		req.onload = () => {
 			cb(JSON.parse(req.response));
@@ -79,7 +79,7 @@ export class UserListComponent implements OnInit {
 	
 	remove(ids) {
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/user/delete');
+		req.open('POST', 'http://39.107.93.245:8081/dashboard/user/delete');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {

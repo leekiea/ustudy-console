@@ -20,7 +20,7 @@ export class AppComponent {
 
 	logout(): void {
 		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/logout');
+		req.open('GET', 'http://39.107.93.245:8081/dashboard/logout');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
@@ -46,7 +46,7 @@ export class AppComponent {
 	
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/loginId');
+		req.open('GET', 'http://39.107.93.245:8081/dashboard/loginId');
 		req.onload = () => {
 			cb(req.response);
 		};

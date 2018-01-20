@@ -44,7 +44,7 @@ export class BUserListComponent implements OnInit {
 	
 	fetch(cb) {
 		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/owner/list/0');
+		req.open('GET', 'http://39.107.93.245:8081/dashboard/owner/list/0');
 		//req.open('GET', 'assets/api/users/busers.json');
 		req.onload = () => {
 			cb(JSON.parse(req.response));
@@ -69,7 +69,7 @@ export class BUserListComponent implements OnInit {
 	
 	remove(ids) {
 		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/owner/delete');
+		req.open('POST', 'http://39.107.93.245:8081/dashboard/owner/delete');
 		req.setRequestHeader("Content-type", "application/json");
 		var that = this;
 		req.onreadystatechange = function() {
