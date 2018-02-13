@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { IUser } from './user';
 import { UserService } from './user.service';
+import { SharedService } from '../../shared.service';
 
 @Component({
     templateUrl: 'user-list.component.html'
@@ -32,7 +33,7 @@ export class UserListComponent implements OnInit {
 		{ prop: 'lastLoginTime', name: '上次登录时间' }
 	];
 	
-    constructor(private _userService: UserService, private router: Router) {
+    constructor(private _userService: UserService, private router: Router, private _sharedService: SharedService) {
 
     }
 		
@@ -45,23 +46,15 @@ export class UserListComponent implements OnInit {
 	   }
 	
 	reload() {
-		this.fetch((data) => {
+		this._sharedService.makeRequest('GET', '/user/list/0', '').then((data: any) => {
 			//cache the list
 			console.log("data: " + JSON.stringify(data));
 			this.rows = data;
-		});		
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+		});
 	}
-	
-	fetch(cb) {
-		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/user/list/0');
-		//req.open('GET', 'assets/api/users/users.json');
-		req.onload = () => {
-			cb(JSON.parse(req.response));
-		};
-		
-		req.send();
-	}	
 
 	removeUser(event) {
 		var ids = [];
@@ -78,19 +71,14 @@ export class UserListComponent implements OnInit {
 	}
 	
 	remove(ids) {
-		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/user/delete');
-		req.setRequestHeader("Content-type", "application/json");
-		var that = this;
-		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status == 200) {
-				that.reload();
-				alert("删除成功！");
-			} else if (req.readyState == 4 && req.status != 200) {
-				alert("删除失败！");
-			}
-		}		
-		req.send(ids);
+		this._sharedService.makeRequest('POST', '/user/delete', ids).then((data: any) => {
+			this.reload();
+			alert("删除成功！");
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+			alert("删除失败！");
+		});
 	}
 
 	updateUser(row) {

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { IBUser } from './buser';
 import { BUserService } from './buser.service';
+import { SharedService } from '../../shared.service';
 
 @Component({
     templateUrl: 'buser-list.component.html'
@@ -26,7 +27,7 @@ export class BUserListComponent implements OnInit {
 		{ prop: 'lastLoginTime', name: '上次登录时间' }
 	];
 	
-    constructor(private _userService: BUserService, private router: Router) {
+    constructor(private _userService: BUserService, private router: Router, private _sharedService: SharedService) {
 
     }
 		
@@ -35,24 +36,17 @@ export class BUserListComponent implements OnInit {
 	}
 	
 	reload() {
-		this.fetch((data) => {
+		//req.open('GET', 'assets/api/users/busers.json');
+		this._sharedService.makeRequest('GET', '/owner/list/0', '').then((data: any) => {
 			//cache the list
 			console.log("data: " + JSON.stringify(data));
 			this.rows = data;
-		});		
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+		});
 	}
 	
-	fetch(cb) {
-		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/owner/list/0');
-		//req.open('GET', 'assets/api/users/busers.json');
-		req.onload = () => {
-			cb(JSON.parse(req.response));
-		};
-		
-		req.send();
-	}	
-
 	removeBUser(event) {
 		var ids = [];
 		console.log("length:" + this.selected.length);
@@ -68,19 +62,14 @@ export class BUserListComponent implements OnInit {
 	}
 	
 	remove(ids) {
-		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/owner/delete');
-		req.setRequestHeader("Content-type", "application/json");
-		var that = this;
-		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status == 200) {
-				that.reload();
-				alert("删除成功！");
-			} else if (req.readyState == 4 && req.status != 200) {
-				alert("删除失败！");
-			}
-		}		
-		req.send(ids);
+		this._sharedService.makeRequest('POST', '/owner/delete', ids).then((data: any) => {
+			this.reload();
+			alert("删除成功！");
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+			alert("删除失败！");
+		});
 	}
 
 	updateBUser(row) {

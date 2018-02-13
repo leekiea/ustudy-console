@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { IUser } from './user';
 import { UserService } from './user.service';
+import { SharedService } from '../../shared.service';
 
 @Component({
     templateUrl: 'add-user.component.html'
@@ -33,7 +34,8 @@ export class AddUserComponent implements OnInit {
 	
 	types = [];
 	
-	constructor(private _userService: UserService, public fb: FormBuilder, public route: ActivatedRoute, private router: Router) {
+	constructor(private _userService: UserService, public fb: FormBuilder, public route: ActivatedRoute, private router: Router, 
+	private _sharedService: SharedService) {
 
     }
 
@@ -49,23 +51,17 @@ export class AddUserComponent implements OnInit {
 		
 		this.user.password = this._userService.MD5(this.user.password);
 
-		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/user/add');
-		req.setRequestHeader("Content-type", "application/json");
-		var that = this;
-		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status == 200) {
-				alert("添加成功");
-				//go back to the school list page
-				that.router.navigate(['userList']);
-			} else if (req.readyState == 4 && req.status != 200) {
-				alert("添加失败！");
-				//go back to the school list page
-				that.router.navigate(['userList']);
-			}
-		}
-		console.log("add user: " + JSON.stringify(this.user));
-		req.send(JSON.stringify(this.user));
+		this._sharedService.makeRequest('POST', '/user/add', JSON.stringify(this.user)).then((data: any) => {
+			alert("添加成功");
+			//go back to the school list page
+			this.router.navigate(['userList']);
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+			alert("添加失败！");
+			//go back to the school list page
+			this.router.navigate(['userList']);
+		});
 	}
 		
     ngOnInit(): void {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ISchool, IGrade, ISubject } from './school';
 import { SchoolService } from './school.service';
+import { SharedService } from '../../shared.service';
 
 @Component({
     templateUrl: 'update-school.component.html'
@@ -33,7 +34,8 @@ export class UpdateSchoolComponent implements OnInit {
 	
 	types = [];
 
-	constructor(private _schoolService: SchoolService, public fb: FormBuilder, public route: ActivatedRoute, public router: Router) {
+	constructor(private _schoolService: SchoolService, public fb: FormBuilder, public route: ActivatedRoute, 
+	public router: Router, private _sharedService: SharedService) {
 
     }
 
@@ -55,43 +57,29 @@ export class UpdateSchoolComponent implements OnInit {
 		}
 		
 		this.school.grades = this._schoolService.washGrades(this.school.grades);
-
-		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/school/update/' + this.school.id);
-		req.setRequestHeader("Content-type", "application/json");
-		var that = this;
-		req.onreadystatechange = function() {
-			that._schoolService.resetPersistData();
-			if (req.readyState == 4 && req.status == 200) {
-				alert("修改成功");
-				//go back to the school list page
-				that.router.navigate(['schoolList']);
-			} else if (req.readyState == 4 && req.status != 200) {
-				alert("修改失败！");
-				//go back to the school list page
-				that.router.navigate(['schoolList']);
-			}
-		}
-		req.send(JSON.stringify(this.school));
+		
+		this._sharedService.makeRequest('POST', '/school/update/' + this.school.id, JSON.stringify(this.school)).then((data: any) => {
+			alert("修改成功");
+			//go back to the school list page
+			this.router.navigate(['schoolList']);
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+			alert("修改失败！");
+			//go back to the school list page
+			this.router.navigate(['schoolList']);
+		});
 	}
 
 	reload() {
-		this.fetch((data) => {
+		this._sharedService.makeRequest('GET', '/school/view/' + this.route.snapshot.params.id, '').then((data: any) => {
 			this.school = data;
 			this.school.grades = this._schoolService.constructGrades(this.school.grades);
-		});		
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+		});
 	}
-
-	fetch(cb) {
-		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/school/view/' + this.route.snapshot.params.id);
-		//req.open('GET', 'assets/api/schools/school.json');
-		req.onload = () => {
-			cb(JSON.parse(req.response));
-		};
-		
-		req.send();
-	}	
 
     ngOnInit(): void {
 		this.updateForm = this.fb.group({

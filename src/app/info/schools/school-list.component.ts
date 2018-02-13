@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ISchool } from './school';
 import { SchoolService } from './school.service';
+import { SharedService } from '../../shared.service';
 
 @Component({
     templateUrl: 'school-list.component.html'
@@ -43,7 +44,8 @@ export class SchoolListComponent implements OnInit {
 		{ prop: 'schoolId', name: '学校ID' }
 	];
 	
-    constructor(private _schoolService: SchoolService, private elm: ElementRef, public fb: FormBuilder, private router: Router) {
+    constructor(private _schoolService: SchoolService, private elm: ElementRef, public fb: FormBuilder,
+	 private router: Router, private _sharedService: SharedService) {
 		this.elm = elm;
     }
 
@@ -61,25 +63,17 @@ export class SchoolListComponent implements OnInit {
 	   }
 	
 	reload() {
-		this.fetch((data) => {
-			//cache the list
+		//req.open('GET', 'assets/api/schools/simpleSchools.json');
+		this._sharedService.makeRequest('GET', '/school/list/0', '').then((data: any) => {
 			console.log("data: " + JSON.stringify(data));
 			this.temp = [...data];
 			this.rows = data;
-		});		
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+		});
 	}
-	
-	fetch(cb) {
-		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/school/list/0');
-		//req.open('GET', 'assets/api/schools/simpleSchools.json');
-		req.onload = () => {
-			cb(JSON.parse(req.response));
-		};
 		
-		req.send();
-	}	
-	
 	updateFilter(event) {
 		const provinceName = this.elm.nativeElement.querySelector('#provinceFilterValue').value;
 		const cityName = this.elm.nativeElement.querySelector('#cityFilterValue').value;
@@ -117,19 +111,14 @@ export class SchoolListComponent implements OnInit {
 	}
 	
 	remove(ids) {
-		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/school/delete');
-		req.setRequestHeader("Content-type", "application/json");
-		var that = this;
-		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status == 200) {
-				that.reload();
-				alert("删除成功！");
-			} else if (req.readyState == 4 && req.status != 200) {
-				alert("删除失败！");
-			}
-		}		
-		req.send(ids);
+		this._sharedService.makeRequest('POST', '/school/delete', ids).then((data: any) => {
+			this.reload();
+			alert("删除成功！");
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+			alert("删除失败！");
+		});
 	}
 
 	updateSchool(row) {

@@ -34,39 +34,45 @@
 		            <div class="collapse navbar-collapse" id="navbar-collapse">
 		                <ul class="nav navbar-nav">
 		                    <li class="dropdown">
-		                    	<a href="#" data-toggle="dropdown" class="dropdown-toggle">客户管理 <span class="caret"></span></a>
-							    <ul class="dropdown-menu" aria-labelledby="dLabel">
-                                    <li><a href="schoolList">学校信息</a></li>
-                                    <li><a href="#">教研室信息</a></li>
-                                    <li><a href="#">统计分析</a></li>
-							    </ul>
+		                    	<a href="#" (click)="checkUserStatus()" data-toggle="dropdown" class="dropdown-toggle">客户管理 <span class="caret"></span></a>
+                                <ng-container *ngIf="_sharedService.userRole!= ''">
+                                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li *ngIf="checkPerm('学校信息')"><a href="schoolList">学校信息</a></li>
+                                        <li *ngIf="checkPerm('教研室信息')"><a href="#">教研室信息</a></li>
+                                        <li *ngIf="checkPerm('统计分析')"><a href="#">统计分析</a></li>
+                                    </ul>
+                                </ng-container>
 							</li>
 		                    <li class="dropdown">
-		                    	<a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">考试管理 <span class="caret"></span></a>
-							    <ul class="dropdown-menu" aria-labelledby="dLabel">
-		                            <li><a href="#">考试信息</a></li>
-		                            <li><a href="#">后台服务</a></li>
-		                            <li><a href="#">联考设置</a></li>
-		                            <li><a href="#">统计分析</a></li>
-							    </ul>
+		                    	<a href="#" (click)="checkUserStatus()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">考试管理 <span class="caret"></span></a>
+                                <ng-container *ngIf="_sharedService.userRole!= ''">
+                                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li *ngIf="checkPerm('考试信息')"><a href="#">考试信息</a></li>
+                                        <li *ngIf="checkPerm('后台服务')"><a href="#">后台服务</a></li>
+                                        <li *ngIf="checkPerm('联考设置')"><a href="#">联考设置</a></li>
+                                        <li *ngIf="checkPerm('考试统计分析')"><a href="#">统计分析</a></li>
+                                    </ul>
+                                </ng-container>
 							</li>
 		                    <li class="dropdown">
-		                    	<a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">账号管理 <span class="caret"></span></a>
-							    <ul class="dropdown-menu" aria-labelledby="dLabel">
-		                            <li><a href="userList">后台账号</a></li>
-                                    <li><a href="ownerList">B端管理者账号</a></li>
-							    </ul>
+		                    	<a href="#" (click)="checkUserStatus()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">账号管理 <span class="caret"></span></a>
+                                <ng-container *ngIf="_sharedService.userRole!= ''">
+                                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li *ngIf="checkPerm('后台账号')"><a href="userList">后台账号</a></li>
+                                        <li *ngIf="checkPerm('B端管理者账号')"><a href="ownerList">B端管理者账号</a></li>
+                                    </ul>
+                                </ng-container>
 							</li>
 		                </ul>
                         <ul class="nav navbar-nav navbar-right navbar-right-box hidden-xs hidden-sm">
-                            <ng-container *ngIf="userName===''">
-                                <li class="dropdown">
+                            <ng-container *ngIf="_sharedService.userName===''">
+                                <li class="dropdown" (click)="checkUserStatus()">
                                     <a href="javascript:;" role="button" aria-haspopup="false" aria-expanded="false"><i class="iconfont iconfont-user"></i> 未登录 <span class="caret"></span></a>
                                 </li>
                             </ng-container>
-                            <ng-container *ngIf="userName!==''">
+                            <ng-container *ngIf="_sharedService.userName!==''">
                                 <li class="dropdown">
-                                    <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="iconfont iconfont-user"></i> {{userName}} <span class="caret"></span></a>
+                                    <a href="javascript:;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="iconfont iconfont-user"></i> {{_sharedService.userName}} <span class="caret"></span></a>
                                     <ul class="dropdown-menu" aria-labelledby="dLabel">
                                         <li><a id="modifyPasswordBtn" href="javascript:;" (click)="logout()">退出</a></li>
                                     </ul>

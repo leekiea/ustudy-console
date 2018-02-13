@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from './shared.service';
 
 @Component({
     selector: 'ustudy-app',
@@ -9,48 +10,50 @@ export class AppComponent {
     pageTitle: string = '蘑菇云后台管理系统';
     userName: string = '';
 
-	constructor(private router: Router) {
+	constructor(private router: Router, public _sharedService: SharedService) {
 
 	}
 
     ngOnInit() : void {
-        console.log("get user name...");
-		this.getUserName();
+	    this.updateUserStatus();
     }
 
-	logout(): void {
-		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/logout');
-		req.setRequestHeader("Content-type", "application/json");
-		var that = this;
-		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status/100 == 2) {
-				alert("您已退出");
-				that.userName = '';
-				that.router.navigate(['welcome']);
-			} else if (req.readyState == 4 && req.status/100 != 2) {
-				alert("退出失败！");
-				that.router.navigate(['welcome']);
-			}
+	checkUserStatus(): void {
+		console.log("check log in status");
+		if (this._sharedService.userName === '') {
+		this.router.navigate(['login']);
 		}
-		req.send();
-	}
-
-    getUserName() {
-		this.fetch((data) => {
-			//cache the list
-			console.log("data: " + data);
-			this.userName = data===undefined ? '' : data;
-		});		
 	}
 	
-	fetch(cb) {
-		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/loginId');
-		req.onload = () => {
-			cb(req.response);
-		};
-		
-		req.send();
-	}	
+	checkPerm(page: string): boolean {
+    	return this._sharedService.checkPerm(page);
+  	}
+
+	logout(): void {
+		this._sharedService.makeRequest('GET', '/api/logout', '').then((data: any) => {
+		alert("您已退出");
+		this._sharedService.userName = '';
+		this._sharedService.userRole = '';
+		this.router.navigate(['welcome']);
+		}).catch((error: any) => {
+		alert("退出失败");
+		this._sharedService.userName = '';
+		this._sharedService.userRole = '';
+		this.router.navigate(['welcome']);
+		});
+	}
+
+	updateUserStatus() {
+		console.log("update user status");
+		this._sharedService.makeRequest('GET', '/api/loginId', '').then((data: any) => {
+		console.log("data: " + JSON.stringify(data));
+		this._sharedService.userName = data.userName === undefined ? '' : data.userName;
+		this._sharedService.userRole = data.role === undefined ? '' : data.role;
+		}).catch((error: any) => {
+		this._sharedService.userName = '';
+		this._sharedService.userRole = '';
+		console.log(error.status);
+		console.log(error.statusText);
+		});
+	}
 }

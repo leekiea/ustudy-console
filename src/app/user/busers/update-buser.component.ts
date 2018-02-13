@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { IBUser } from './buser';
 import { BUserService } from './buser.service';
-
+import { SharedService} from '../../shared.service';
 @Component({
     templateUrl: 'update-buser.component.html'
 })
@@ -31,7 +31,8 @@ export class UpdateBUserComponent implements OnInit {
 
 	oldPassword: string = "";
 
-	constructor(private _userService: BUserService, public fb: FormBuilder, public route: ActivatedRoute, public router: Router) {
+	constructor(private _userService: BUserService, public fb: FormBuilder, public route: ActivatedRoute, public router: Router,
+	private _sharedService: SharedService) {
 
     }
     
@@ -49,42 +50,28 @@ export class UpdateBUserComponent implements OnInit {
 			this.user.password = this._userService.MD5(this.user.password);
 		}
 
-		const req = new XMLHttpRequest();
-		req.open('POST', 'http://47.92.53.57:8081/dashboard/owner/update');
-		req.setRequestHeader("Content-type", "application/json");
-		var that = this;
-		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status/100 == 2) {
-				alert("修改成功");
-				//go back to the school list page
-				that.router.navigate(['ownerList']);
-			} else if (req.readyState == 4 && req.status/100 != 2) {
-				alert("修改失败！");
-				//go back to the school list page
-				that.router.navigate(['ownerList']);
-			}
-		}
-		console.log("update user: " + JSON.stringify(this.user));
-		req.send(JSON.stringify(this.user));
-	}
-
-	reload() {
-		this.fetch((data) => {
-			this.user = data;
-			this.oldPassword = data.password;
+		this._sharedService.makeRequest('POST', '/owner/update', JSON.stringify(this.user)).then((data: any) => {
+			alert("修改成功");
+			//go back to the school list page
+			this.router.navigate(['ownerList']);
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+			alert("修改失败！");
+			//go back to the school list page
+			this.router.navigate(['ownerList']);
 		});
 	}
 
-	fetch(cb) {
-		const req = new XMLHttpRequest();
-		req.open('GET', 'http://47.92.53.57:8081/dashboard/owner/view/' + this.route.snapshot.params.id);
-		//req.open('GET', 'assets/api/users/user.json');
-		req.onload = () => {
-			cb(JSON.parse(req.response));
-		};
-		
-		req.send();
-	}	
+	reload() {
+		this._sharedService.makeRequest('GET', '/owner/view/' + this.route.snapshot.params.id, '').then((data: any) => {
+			this.user = data;
+			this.oldPassword = data.password;
+		}).catch((error: any) => {
+			console.log(error.status);
+			console.log(error.statusText);
+		});
+	}
 
     ngOnInit(): void {
 		this.updateForm = this.fb.group({
