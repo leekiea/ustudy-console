@@ -30,7 +30,7 @@ export class AppComponent {
   	}
 
 	logout(): void {
-		this._sharedService.makeRequest('GET', '/api/logout', '').then((data: any) => {
+		this._sharedService.makeRequest('GET', '/logout', '').then((data: any) => {
 		alert("您已退出");
 		this._sharedService.userName = '';
 		this._sharedService.userRole = '';
@@ -45,7 +45,7 @@ export class AppComponent {
 
 	updateUserStatus() {
 		console.log("update user status");
-		this._sharedService.makeRequest('GET', '/api/loginId', '').then((data: any) => {
+		this._sharedService.makeRequest('GET', '/loginId', '').then((data: any) => {
 		console.log("data: " + JSON.stringify(data));
 		this._sharedService.userName = data.userName === undefined ? '' : data.userName;
 		this._sharedService.userRole = data.role === undefined ? '' : data.role;
