@@ -23,6 +23,7 @@ This shared service provides common utilitis and constants to the whole project.
 export class SharedService {
 
   public userName = '';
+  public userId = '';
   public userRole = '';
   public orgId = '';
 

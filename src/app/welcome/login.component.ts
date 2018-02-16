@@ -41,13 +41,17 @@ export class LoginComponent {
     console.log("reqContent:" + this.reqContent.data);
 
     this._sharedService.makeRequest('POST', '/login', this.reqContent).then((data: any) => {
-      alert("登录成功");
-      this._sharedService.userName = data.userName === undefined ? '' : data.userName;
-      this._sharedService.userRole = data.role === undefined ? '' : data.role;
-      console.log("login successful: user:" + this._sharedService.userName + " role:" + this._sharedService.userRole);
+      if(data.success === true) {
+        alert("登录成功");
+        this._sharedService.userName = data.data.userName === undefined ? '' : data.data.userName;
+        this._sharedService.userId = data.data.userId === undefined ? '' : data.data.userId;
+        this._sharedService.userRole = data.data.role === undefined ? '' : data.data.role;
+      }
+      console.log("login successful: user:" + this._sharedService.userName + " id:" + this._sharedService.userId + " role:" + this._sharedService.userRole);
       this.router.navigate(['welcome']);
     }).catch((error: any) => {
       this._sharedService.userName = '';
+      this._sharedService.userId = '';
       this._sharedService.userRole = '';
       console.log(error.status);
       console.log(error.statusText);

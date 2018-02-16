@@ -33,11 +33,13 @@ export class AppComponent {
 		this._sharedService.makeRequest('GET', '/logout', '').then((data: any) => {
 		alert("您已退出");
 		this._sharedService.userName = '';
+		this._sharedService.userId = '';
 		this._sharedService.userRole = '';
 		this.router.navigate(['welcome']);
 		}).catch((error: any) => {
 		alert("退出失败");
 		this._sharedService.userName = '';
+		this._sharedService.userId = '';
 		this._sharedService.userRole = '';
 		this.router.navigate(['welcome']);
 		});
@@ -46,14 +48,18 @@ export class AppComponent {
 	updateUserStatus() {
 		console.log("update user status");
 		this._sharedService.makeRequest('GET', '/loginId', '').then((data: any) => {
-		console.log("data: " + JSON.stringify(data));
-		this._sharedService.userName = data.userName === undefined ? '' : data.userName;
-		this._sharedService.userRole = data.role === undefined ? '' : data.role;
+			if(data.success === true) {
+				console.log("data: " + JSON.stringify(data));
+				this._sharedService.userName = data.data.userName === undefined ? '' : data.data.userName;
+				this._sharedService.userId = data.data.userId === undefined ? '' : data.data.userId;
+				this._sharedService.userRole = data.data.role === undefined ? '' : data.data.role;
+			}
 		}).catch((error: any) => {
-		this._sharedService.userName = '';
-		this._sharedService.userRole = '';
-		console.log(error.status);
-		console.log(error.statusText);
+			this._sharedService.userName = '';
+			this._sharedService.userId = '';
+			this._sharedService.userRole = '';
+			console.log(error.status);
+			console.log(error.statusText);
 		});
 	}
 }
