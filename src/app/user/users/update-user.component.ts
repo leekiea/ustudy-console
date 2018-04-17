@@ -17,7 +17,7 @@ export class UpdateUserComponent implements OnInit {
 	errorMessage: string;
 
     user: IUser = {
-    	'id' : '',
+    	'id' : 0,
 		'userName' : '',
 		'userId' : '',
 		'password' : '',

@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
 		var ids = [];
 		console.log("length:" + this.selected.length);
 		for(var i=0; i<this.selected.length; i++) {
-			var j = {"id" : ""};
+			var j = {"id" : 0};
 			j.id = this.selected[i].id;
 			console.log("remove users:" + j.id);
 			ids.push(j);

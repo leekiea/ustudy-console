@@ -1,6 +1,6 @@
 /* Defines the console b user entity */
 export interface IBUser {
-	id?: string;
+	id?: number;
     userId: string;
     userName: string;
     password?: string;

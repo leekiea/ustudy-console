@@ -1,6 +1,6 @@
 /* Defines the console user entity */
 export interface IUser {
-	id?: string;
+	id?: number;
     userId: string;
     userName: string;
     password?: string;
