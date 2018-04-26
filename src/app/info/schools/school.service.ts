@@ -82,7 +82,8 @@ export class SchoolService {
        		               {"subject": "政治" ,"checked": false},
        		               {"subject": "历史" ,"checked": false},
        		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}],
+       		               {"subject": "数学(文)" ,"checked": false},
+                         {"subject": "其他" ,"checked": false}]
        		   "numOfClasses": 0,
        		   "checked": false
        	  },
@@ -98,7 +99,8 @@ export class SchoolService {
        		               {"subject": "地理" ,"checked": false},
        		               {"subject": "理综" ,"checked": false},
        		               {"subject": "文综" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
+       		               {"subject": "数学(文)" ,"checked": false},
+                         {"subject": "其他" ,"checked": false}] 
        		  "numOfClasses": 0,
        		  "checked": false
        	  },
