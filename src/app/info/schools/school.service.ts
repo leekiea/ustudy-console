@@ -7,6 +7,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
+import {SharedService} from '../../shared.service';
+
 import { ISchool, IGrade, ISubject } from './school';
 
 @Injectable()
@@ -26,7 +28,7 @@ export class SchoolService {
 	//完中：初中+高中， 补习：初三+高三
 	private types = ["高中", "初中", "完中", "九年制", "小学", "十二年制", "补习", "其他"];
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private _sharedService: SharedService) { }
 
 //    getSchools(): Observable<ISchool[]> {
 //        return this._http.get(this._schoolUrl)
@@ -56,151 +58,87 @@ export class SchoolService {
 		return this.types;
 	}
 	
-	getDefaultGrades(): IGrade[] {
-		return 	[
-       	  {	"grade": '高一', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-                         {"subject": "理综" ,"checked": false},
-                         {"subject": "文综" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		   "numOfClasses": 0,
-       		   "checked": false
-       	  },
-       	  {	"grade": '高二', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-                         {"subject": "理综" ,"checked": false},
-                         {"subject": "文综" ,"checked": false},
-       		               {"subject": "数学(文)" ,"checked": false},
-                         {"subject": "其他" ,"checked": false}],
-       		   "numOfClasses": 0,
-       		   "checked": false
-       	  },
-       	  {	"grade": '高三', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-       		               {"subject": "理综" ,"checked": false},
-       		               {"subject": "文综" ,"checked": false},
-       		               {"subject": "数学(文)" ,"checked": false},
-                         {"subject": "其他" ,"checked": false}],
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '七年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-                         {"subject": "理综" ,"checked": false},
-                         {"subject": "文综" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '八年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-                         {"subject": "理综" ,"checked": false},
-                         {"subject": "文综" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '九年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "物理" ,"checked": false},
-						             {"subject": "化学" ,"checked": false},
-       		               {"subject": "生物" ,"checked": false},
-       		               {"subject": "政治" ,"checked": false},
-       		               {"subject": "历史" ,"checked": false},
-       		               {"subject": "地理" ,"checked": false},
-                         {"subject": "理综" ,"checked": false},
-                         {"subject": "文综" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  },
-       	  {	"grade": '一年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '二年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '三年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '四年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '五年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }, 
-       	  {	"grade": '六年级', 
-       		  "subjects": [{"subject": "语文", "checked": false},
-       		               {"subject": "数学", "checked": false},
-       		               {"subject": "英语" ,"checked": false},
-       		               {"subject": "其他" ,"checked": false}], 
-       		  "numOfClasses": 0,
-       		  "checked": false
-       	  }
-      	]; 
+	getDefaultGrades(): any {
+		return new Promise((resolve, reject) => {
+			this._sharedService.makeRequest('GET', '/config/sublist/', '').then((data: any) => {
+				console.log("data: " + JSON.stringify(data));
+				let subjects = data.data;
+				let grades = [
+					{	"grade": '高一', 
+						"subjects": [], 
+						 "numOfClasses": 0,
+						 "checked": false
+					},
+					{	"grade": '高二', 
+						"subjects": [],
+						 "numOfClasses": 0,
+						 "checked": false
+					},
+					{	"grade": '高三', 
+						"subjects": [],
+						"numOfClasses": 0,
+						"checked": false
+					},
+					{	"grade": '七年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					},
+					{	"grade": '八年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					},
+					{	"grade": '九年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					},
+					{	"grade": '一年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					}, 
+					{	"grade": '二年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					}, 
+					{	"grade": '三年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					}, 
+					{	"grade": '四年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					}, 
+					{	"grade": '五年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					}, 
+					{	"grade": '六年级', 
+						"subjects": [], 
+						"numOfClasses": 0,
+						"checked": false
+					}
+				]; 
+				for (let grade of grades) {
+					for (let subject of subjects) {
+						let item = {subject: '', checked: false};
+						item.subject = subject.subject;
+						grade.subjects.push(item);
+					}
+				}
+				resolve(grades);
+			}).catch((error: any) => {
+				console.log(error.status);
+				console.log(error.statusText);
+				reject();
+			});
+		});
 	}
 	
 	getPersistData(): ISchool {
@@ -251,29 +189,33 @@ export class SchoolService {
     }
 
 	// add unselected items into the grades and associate checked flag with all the items.
-    constructGrades(oldGrades:IGrade[]): IGrade[] {
-		var newGrades: IGrade[] = this.getDefaultGrades();
-		if (oldGrades.length <= 0) {
-			return newGrades;
-		} else if (oldGrades[0].checked !== undefined){
-			return oldGrades;
-		}
-		for (var oldGrade of oldGrades) {
-			for (var newGrade of newGrades) {
-				if (newGrade.grade == oldGrade.grade) {
-					newGrade.checked = true;
-					newGrade.numOfClasses = oldGrade.numOfClasses;
-					for (var oldSubject of oldGrade.subjects) {
-						for (var newSubject of newGrade.subjects) {
-							if (newSubject.subject == oldSubject.subject) {
-								newSubject.checked = true;
+    constructGrades(oldGrades:IGrade[]): any{
+		return new Promise((resolve, reject) => {
+			this.getDefaultGrades().then((data) => {
+				var newGrades: IGrade[] = data;
+				if (oldGrades.length <= 0) {
+					resolve(newGrades);
+				} else if (oldGrades[0].checked !== undefined){
+					resolve(oldGrades);
+				}
+				for (var oldGrade of oldGrades) {
+					for (var newGrade of newGrades) {
+						if (newGrade.grade == oldGrade.grade) {
+							newGrade.checked = true;
+							newGrade.numOfClasses = oldGrade.numOfClasses;
+							for (var oldSubject of oldGrade.subjects) {
+								for (var newSubject of newGrade.subjects) {
+									if (newSubject.subject == oldSubject.subject) {
+										newSubject.checked = true;
+									}
+								}
 							}
 						}
 					}
 				}
-			}
-		}
-    	return newGrades;
+				resolve(newGrades);
+			});
+		});
     }	
 	
 //    private handleError(error: Response) {

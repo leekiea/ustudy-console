@@ -59,12 +59,14 @@ export class UpdateSchoolComponent implements OnInit {
 		this.school.grades = this._schoolService.washGrades(this.school.grades);
 		
 		this._sharedService.makeRequest('POST', '/school/update/' + this.school.id, JSON.stringify(this.school)).then((data: any) => {
+			this._schoolService.resetPersistData();
 			alert("修改成功");
 			//go back to the school list page
 			this.router.navigate(['schoolList']);
 		}).catch((error: any) => {
 			console.log(error.status);
 			console.log(error.statusText);
+			this._schoolService.resetPersistData();
 			alert("修改失败！");
 			//go back to the school list page
 			this.router.navigate(['schoolList']);
@@ -74,7 +76,9 @@ export class UpdateSchoolComponent implements OnInit {
 	reload() {
 		this._sharedService.makeRequest('GET', '/school/view/' + this.route.snapshot.params.id, '').then((data: any) => {
 			this.school = data;
-			this.school.grades = this._schoolService.constructGrades(this.school.grades);
+			this._schoolService.constructGrades(this.school.grades).then((data) => {
+				this.school.grades = data;
+			});
 		}).catch((error: any) => {
 			console.log(error.status);
 			console.log(error.statusText);

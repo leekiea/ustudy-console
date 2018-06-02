@@ -58,10 +58,12 @@ export class AddSchoolComponent implements OnInit {
 		this.school.grades = this._schoolService.washGrades(this.school.grades);
 
 		this._sharedService.makeRequest('POST', '/school/add', JSON.stringify(this.school)).then((data: any) => {
+			this._schoolService.resetPersistData();
 			alert("添加成功");
 			//go back to the school list page
 			this.router.navigate(['schoolList']);
 		}).catch((error: any) => {
+			this._schoolService.resetPersistData();
 			alert("添加失败！");
 			//go back to the school list page
 			this.router.navigate(['schoolList']);
@@ -86,7 +88,11 @@ export class AddSchoolComponent implements OnInit {
     	var school: ISchool = this._schoolService.getPersistData();
 
     	if (!school) {
-			this.school.grades = this._schoolService.getDefaultGrades();
+			this._schoolService.getDefaultGrades().then((data) => {
+				this.school.grades = data;
+				console.log("schole grades are!!!:");
+				console.dir(this.school.grades);	
+			});
 	   	} else {
 			this.school = school;
 		}
